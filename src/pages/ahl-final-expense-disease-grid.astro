@@ -1,0 +1,1384 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+// JSON data
+const medicalConditions = [
+	{
+		condition: "Activities of Daily Living (ADLs)",
+		criteria: [
+			{ description: "Currently", preferred: "", standard: "", modified: "", decline: "X" },
+			{ description: "Not Currently", preferred: "X", standard: "", modified: "", decline: "" },
+		],
+	},
+	{
+		condition: "AIDS / HIV",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Alcohol/Drug Abuse/Addiction",
+		criteria: [
+			{
+				description: "Treated or counseled within the past 2 years",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Alzheimer's Disease",
+		criteria: [
+			{
+				description: "Been medically diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Amputation",
+		criteria: [
+			{
+				description: "Amputation caused by Disease",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Amputation caused by Diabetes",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Amputation caused by Accident",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Amyotrophic Lateral Sclerosis (ALS)",
+		criteria: [
+			{
+				description: "Been medically diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Aneurysm",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-12 months ",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 25+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Angina (Chest Pain)",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Angioplasty (Stent)",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Arrhythmia",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Atrial Fibrillation",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Basal Cell Skin Cancer",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Bed Confinement",
+		criteria: [
+			{
+				description: "Currently confined to a bed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Bipolar Disorder",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Bone Marrow Transplant",
+		criteria: [
+			{
+				description: "Been medically treated",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Cancer",
+		criteria: [
+			{
+				description: "Recurrent Cancer - Ever, Cured",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Currently have cancer",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Medically diagnosed or treated within 0-24 months (and cured)",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Medically diagnosed or treated within 24+ months (and cured)",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Cardiomyopathy",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 25+ months ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Catheterization (Heart)",
+		criteria: [
+			{
+				description: "Within the past 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Within the past 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "More than 25+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Chronic Bronchitis",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months ago",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Chronic Kidney Disease/Nephropathy",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 25+ months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Chronic Obstructive Pulmonary Disease (COPD)",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Chronic Pancreatitis",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within the past 2 years",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Within the past 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Circulatory Surgery",
+		criteria: [
+			{
+				description: "Within the past 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Within the past 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "37+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Cirrhosis of the Liver",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Congestive Heart Failure",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Covid-19",
+		criteria: [
+			{
+				description: "Oxygen required within 12 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description:
+					"Oxygen required 13+ months and has ongoing treatment with inhalers, nebulizer",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "No oxygen, no ongoing treatment with inhalers, nebulizer",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Diabetes",
+		criteria: [
+			{
+				description: "Diagnosed 20 or more years ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Diabetic Insulin Use",
+		criteria: [
+			{
+				description: "Taken insulin shots prior to age 50",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Currently controlled with insulin use",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Diabetic Complications",
+		criteria: [
+			{
+				description: "Diagnosed or treated for insulin shock or diabetic coma in last 24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for insulin shock or diabetic coma 25+ months ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Retinopathy in last 24 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Retinopathy 25+ months ago",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Nephropathy in last 24 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Nephropathy 25+ months ago",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Neuropathy in last 24 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Diagnosed or treated for Neuropathy 25+ months ago",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Amputation due to diabetes",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Defibrillator",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Dementia",
+		criteria: [
+			{
+				description: "Been medically diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Diagnostic Testing, Surgery, Hospitalization",
+		criteria: [
+			{
+				description:
+					"Recommended within the past 0-12 months; has not been completed or for which results are not known",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description:
+					"Recommended within the past 13-24 months; has not been completed or for which results are not known",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "25+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Emphysema",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Heart Attack",
+		criteria: [
+			{
+				description: "Within the past 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Within the past 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Within the past 25-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Heart Defect",
+		criteria: [
+			{
+				description:
+					'Ever medically diagnosed but not surgically repaired ("See Heart Surgery if repaired")',
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Heart Surgery",
+		criteria: [
+			{
+				description: "Within the past 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Within the past 13-24 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Within the past 25-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Hepatitis (Chronic) inflamed > 6 mos",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Hepatitis (Any/Acute)",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months ago",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Home Health Care",
+		criteria: [
+			{
+				description: "Currently receiving",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Not currently receiving or advised to be receiving",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Hospice Care",
+		criteria: [
+			{
+				description: "Currently receiving",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Hospitalization/Nursing Facility",
+		criteria: [
+			{
+				description: "Currently hospitalized/confined",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Not hospitalized or advised to be hospitalized",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Huntington's Disease",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Kidney Dialysis",
+		criteria: [
+			{
+				description: "Had or been medically advised to have",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Kidney Disease/Insufficiency",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 25+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Kidney Failure",
+		criteria: [
+			{
+				description: "Advised treatment/treated other than Dialysis in last 24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Advised treatment/treated for Dialysis in last 12 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Liver Disease",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 24-36 months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Liver Failure",
+		criteria: [
+			{
+				description: "Been medically treated or diagnosed",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Lupus",
+		criteria: [
+			{
+				description: "Ever been diagnosed",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Mental Incapacity",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Multiple Sclerosis",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Muscular Dystrophy",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Nervous Disorder (Hospitalized For)",
+		criteria: [
+			{
+				description: "Within 24 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Nicotine",
+		criteria: [
+			{
+				description: "No nicotine or tobacco within 12 months = Non-Smoker",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "No tobacco, only nicotine within 12 months = Smoker",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Occasional pipe/cigar use within 12 months = Smoker",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Tobacco, but not cigarettes within 12 months = Smoker",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Cigarettes within 12 months = Smoker",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Organ Transplant",
+		criteria: [
+			{
+				description: "Had, or have been medically advised to have",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Oxygen",
+		criteria: [
+			{
+				description: "Used within last 12 months (not now)",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Used within the past 13-24 months (not now)",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Pacemaker",
+		criteria: [
+			{
+				description: "Inserted within the past 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Inserted within the past 13-24 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Inserted within the past 25-36 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Inserted 37+ months ago",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Paralysis",
+		criteria: [
+			{
+				description: "If no help needed with activities of daily living",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Parkinson's Disease",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Schizophrenia",
+		criteria: [
+			{
+				description: "Ever",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Seizures",
+		criteria: [
+			{
+				description: "Been medically diagnosed or treated within 3 years",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Stroke/TIA",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within 0-12 months",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Medically diagnosed or treated within 13-24 months",
+				preferred: "",
+				standard: "",
+				modified: "X",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated within 25-36 months",
+				preferred: "",
+				standard: "X",
+				modified: "",
+				decline: "",
+			},
+			{
+				description: "Medically diagnosed or treated 37+ months",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "",
+			},
+		],
+	},
+	{
+		condition: "Terminal Illness",
+		criteria: [
+			{
+				description: "Been medically diagnosed or treated (life expectancy within 12 months)",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Ulcerative Colitis",
+		criteria: [
+			{
+				description: "Medically diagnosed or treated within the past 3 years",
+				preferred: "X",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+	{
+		condition: "Wheelchair/Scooter Use",
+		criteria: [
+			{
+				description: "Current wheelchair NOT due to disease",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+			{
+				description: "Current wheelchair due to disease (not accident)",
+				preferred: "",
+				standard: "",
+				modified: "",
+				decline: "X",
+			},
+		],
+	},
+];
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<div class="container mx-auto max-w-7xl">
+			<div class="two columns question">
+				<div class="sidebar">
+					<div class="sb-title">
+						<table class="statustab w-full">
+							<tr class="flex w-full justify-between">
+								<td>
+									<img
+										class="max-h-10"
+										src="https://www.legacypartnersfn.com/wp-content/uploads/2021/02/cropped-legacy-partners-logo-h-darkbg-1.png"
+									/>
+								</td>
+								<td class="titletd">AHL Final Expense Disease</td>
+							</tr>
+						</table>
+					</div>
+					<div class="docs section-container accordion bg-white" data-section="">
+						<section class="section">
+							<p class="p-2">
+								<span class="text-green-500">Green </span>{"="}Preferred,
+								<span class="text-amber-500">Orange</span>{"="}Modified,
+								<span class="text-blue-500">Standard</span>{"="}Standard,
+								<span class="text-red-500"> Red</span>{"="}Decline
+							</p>
+							<div></div>
+
+							{
+								medicalConditions.map((condition) => (
+									<section class="section">
+										<p class="title">
+											<Icon name="chevronDown" />
+											{condition.condition}
+										</p>
+										<div class="content bg-white">
+											<ul class="side-nav">
+												{condition.criteria.map((criterion) => (
+													<li>
+														<p>
+															{criterion.description} =
+															{criterion.preferred === "X" && (
+																<span class="text-green-500">Preferred</span>
+															)}
+															{criterion.standard === "X" && (
+																<span class="text-blue-500">Standard</span>
+															)}
+															{criterion.modified === "X" && (
+																<span class="text-amber-500">Modified</span>
+															)}
+															{criterion.decline === "X" && (
+																<span class="text-red-500">Decline</span>
+															)}
+														</p>
+													</li>
+												))}
+											</ul>
+										</div>
+									</section>
+								))
+							}
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.yellow-highlight {
+		background-color: #fbff02;
+		color: #003654 !important;
+	}
+	.section .partb {
+		background-color: #003654 !important;
+		color: #fff !important;
+		padding: 0.3375em;
+	}
+	.sidebar {
+		position: relative;
+		background-color: #003654;
+		width: 100%;
+		border-radius: 10px;
+		border: 2px solid #ffffff;
+		-moz-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.47);
+		-webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.47);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.47);
+	}
+	.section-container .active {
+		border-left: 3px solid #003654;
+		color: #6f6f6f;
+	}
+	.section-container .content-two.active,
+	.section-container .content-two {
+		border-left: none !important;
+		background-color: #fff !important;
+		color: #003654 !important;
+		border-top: 1px solid #003654;
+	}
+	.sidebar .sb-title {
+		border-bottom: 3px solid #84bd3d;
+		background-color: #003654;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		color: #ffffff;
+		padding: 6px;
+		font-size: 21px;
+		font-family: "Open Sans", sans-serif;
+	}
+	.section-container {
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+		border: 1px solid #cccccc;
+		border-top: none;
+		border-bottom: 3px solid #84bd3d;
+	}
+	.title {
+		display: flex !important; /* Enables flexbox */
+		flex-direction: row-reverse; /* Reverses the row direction */
+		align-items: flex-end; /* Aligns items to the bottom */
+		justify-content: space-between; /* Spaces items evenly */
+		padding: 0.5rem; /* Adds padding (16px) */
+		width: 100%; /* Full width */
+		transition: background-color 0.3s ease; /* Smooth hover transition */
+	}
+
+	.title:hover {
+		background-color: #bfdbfe; /* Tailwind's blue-200 */
+		cursor: pointer;
+	}
+	.content {
+		max-height: 0px;
+		overflow: clip;
+		transition: max-height 0.3s ease-in-out;
+	}
+
+	.content.open {
+		max-height: 9999px;
+	}
+	.side-nav li {
+		background-color: #eef5fd;
+		color: #16365c;
+		padding: 1rem;
+		border: 1px solid;
+		border-left: 2px solid;
+		border-bottom: none;
+	}
+	.side-nav li:last-child {
+		border-bottom: 1px solid;
+	}
+	.side-nav h1 {
+		font-size: 1.25rem;
+	}
+</style>
+
+<script>
+	document.querySelectorAll("p.title").forEach((title) => {
+		title.addEventListener("click", () => {
+			const content = title.nextElementSibling;
+			if (content && content.classList.contains("content")) {
+				content.classList.toggle("open");
+			}
+		});
+	});
+</script>

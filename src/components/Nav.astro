@@ -1,0 +1,67 @@
+---
+const menuItems = [
+	{ title: "Final Expense Grid", link: "/final-expense-grid" },
+	{ title: "Mortgage Term Grid", link: "/mortgage-term-grid" },
+	{ title: "AHL Final Expense Disease Grid", link: "/ahl-final-expense-disease-grid" },
+];
+---
+
+<nav class="w-screen">
+	<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
+		<ul class="hidden w-full justify-center gap-6 md:flex">
+			{
+				menuItems.map(({ title, link }) => (
+					<li class="flex rounded-xl transition-colors duration-150 ease-in-out hover:bg-slate-700/10">
+						<a class="h-full w-full flex-grow p-3" href={link}>
+							{title}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<label class="relative z-40 ml-auto cursor-pointer md:hidden">
+			<input class="peer hidden" type="checkbox" id="mobile-menu" />
+			<div
+				class="ring-opacity-30 group relative z-100 flex h-[50px] w-[50px] transform items-center justify-center overflow-hidden rounded-full bg-slate-700/20 ring-0 shadow-md ring-gray-300 transition-all duration-200 peer-checked:ring-4 hover:ring-8"
+			>
+				<div
+					class="flex h-[20px] w-[20px] origin-center transform flex-col justify-between overflow-hidden transition-all duration-300 group-peer-checked:translate-x-1.5"
+				>
+					<div
+						class="h-[2px] w-7 origin-left transform bg-black transition-all delay-150 duration-300 group-peer-checked:w-2/3 group-peer-checked:rotate-[42deg]"
+					>
+					</div>
+					<div
+						class="h-[2px] w-7 transform rounded bg-black transition-all duration-300 group-peer-checked:translate-x-10"
+					>
+					</div>
+					<div
+						class="h-[2px] w-7 origin-left transform bg-black transition-all delay-150 duration-300 group-peer-checked:w-2/3 group-peer-checked:-rotate-[42deg]"
+					>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="fixed inset-0 z-30 hidden h-full w-full bg-black/50 backdrop-blur-sm peer-checked:block"
+			>
+			</div>
+
+			<div
+				class="fixed top-0 right-0 z-40 h-full w-full translate-x-full overflow-y-auto overscroll-y-none transition duration-500 peer-checked:translate-x-0"
+			>
+				<div class="float-right min-h-full w-[85%] bg-white px-6 pt-12 shadow-2xl">
+					<ul>
+						{
+							menuItems.map(({ title, link }) => (
+								<li>
+									<a href={link}>{title}</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</label>
+	</div>
+</nav>
